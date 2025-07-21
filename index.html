@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>משל העגלה והשמש</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <style>
+        body {
+            font-family: 'Assistant', sans-serif;
+            background-color: #121212; /* Even deeper black */
+            color: #e0e0e0;
+        }
+        .font-serif-hebrew {
+            font-family: 'Frank Ruhl Libre', serif;
+        }
+        .scene {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .story-text {
+            max-width: 700px; /* Wider for bigger text */
+            text-align: center;
+            opacity: 0; /* Initially hidden */
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .story-text.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .sun-glow {
+            position: fixed; /* Fixed position for a constant presence */
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, rgba(255,215,0,0) 55%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .icon-container {
+            margin: 0 auto 1.5rem auto;
+            height: 5rem; /* 80px */
+            width: 5rem; /* 80px */
+            color: #facc15; /* yellow-400 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="sun-glow"></div>
+
+    <div id="story-container">
+        
+        <!-- Scene 1: The Setup -->
+        <section class="scene">
+            <div class="story-text">
+                <div class="icon-container">
+                    <!-- Icon: Stroller on a path, sun on the horizon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 4a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" stroke-width="0" fill="currentColor" class="text-yellow-500/80"/>
+                        <path d="M12 4a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                        <path d="M4 22s4-4 8-4 8 4 8 4"/>
+                        <path d="M4.5 18l3-6.5" />
+                        <path d="M11 11.5l-3 6.5" />
+                        <circle cx="6" cy="19.5" r="1.5"/>
+                        <circle cx="9.5" cy="19.5" r="1.5"/>
+                        <path d="M8.5 13a3.5 3.5 0 0 1 0-7h1.5"/>
+                    </svg>
+                </div>
+                <p class="font-serif-hebrew text-3xl md:text-4xl lg:text-5xl leading-relaxed">"לקחתי את הבת שלי בעגלה למטפלת, והגענו לקטע דרך שראיתי שעוד רגע יהיה לה שמש..."</p>
+            </div>
+        </section>
+
+        <!-- Scene 2: The Action -->
+        <section class="scene">
+            <div class="story-text">
+                <div class="icon-container">
+                    <!-- Icon: Sun rays being blocked by a sunshade -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 12h12" />
+                        <path d="M4 16h16" />
+                        <path d="M7 20h10" />
+                        <path d="M3 8c4.667 2.667 9.333 2.667 14 0l4-4" />
+                        <path d="M2 3l4 4" />
+                        <path d="M12 2v5" />
+                        <path d="M22 3l-4 4" />
+                    </svg>
+                </div>
+                <p class="font-serif-hebrew text-3xl md:text-4xl lg:text-5xl leading-relaxed">"...באינסטינקט הראשוני פתחתי לה את הסך שמש, שלא יהיה עליה שמש כמובן."</p>
+            </div>
+        </section>
+
+        <!-- Scene 3: The Insight -->
+        <section class="scene">
+            <div class="story-text">
+                <div class="icon-container">
+                    <!-- Icon: A large, gentle eye within a sun -->
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                        <path d="M12 16a6 6 0 0 0 0-8c-2.5 0-4.5 2-4.5 4s2 4 4.5 4z"/>
+                        <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                        <path d="M12 2v-2M12 24v-2M22 12h2M0 12h2M19.07 4.93l1.41-1.41M3.52 20.48l1.41-1.41M19.07 19.07l1.41 1.41M3.52 3.52l1.41 1.41"/>
+                    </svg>
+                </div>
+                <p class="font-serif-hebrew text-4xl md:text-5xl lg:text-6xl leading-relaxed text-yellow-300">"חשבתי, שככה הקדוש ברוך הוא רואה אותנו כל הזמן, ודואג לנו כל שניה ושניה."</p>
+            </div>
+        </section>
+
+        <!-- Scene 4: The Analogy -->
+        <section class="scene">
+            <div class="story-text">
+                 <div class="icon-container">
+                    <!-- Icon: A small figure protected by a large shield of light -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 19m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0" />
+                        <path d="M12 17v-6" />
+                        <path d="M12 11l2 2" />
+                        <path d="M12 11l-2 2" />
+                        <path d="M10 14h4" />
+                        <path d="M21 12c0-4.97-4.03-9-9-9s-9 4.03-9 9c0 2.03.67 3.9 1.76 5.4" stroke-width="1.5" class="text-yellow-500/80"/>
+                        <path d="M2 3l3 3M6 2l-2 3M10 1l-2 3"/>
+                    </svg>
+                 </div>
+                 <p class="font-serif-hebrew text-3xl md:text-4xl lg:text-5xl leading-relaxed">"וכמו שהיא, הקטנה, לא יודעת מה טוב לה, אבל קורה לה טוב – כנ"ל אנחנו, לא יודעים מה טוב לנו, וכל הזמן קורה לנו טוב ועוד טוב."</p>
+            </div>
+        </section>
+
+        <!-- Scene 5: The Gratitude -->
+        <section class="scene">
+             <div class="story-text">
+                <div class="icon-container">
+                    <!-- Icon: Open hands receiving light from a heart -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 15c-3 0-5-2-5-5s2-5 5-5" />
+                        <path d="M17 15c3 0 5-2 5-5s-2-5-5-5" />
+                        <path d="M12 14.5a2.5 2.5 0 0 0-2.5-2.5c0-1.5 1-2.5 2.5-2.5s2.5 1 2.5 2.5A2.5 2.5 0 0 0 12 14.5z" stroke-width="0" fill="currentColor" class="text-yellow-400"/>
+                        <path d="M12 6V4" />
+                        <path d="M12 18v2" />
+                        <path d="M15.5 7.5l1-1" />
+                        <path d="M7.5 16.5l-1 1" />
+                        <path d="M8.5 7.5l-1-1" />
+                        <path d="M16.5 16.5l-1 1" />
+                    </svg>
+                </div>
+                <h3 class="font-serif-hebrew text-6xl md:text-7xl lg:text-8xl font-bold text-yellow-400/90">אבא, תודה.</h3>
+                <p class="mt-6 text-2xl text-gray-400/90">ושנזכור תמיד להודות לך כל הזמן.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate the sun glow on load
+        gsap.to(".sun-glow", { 
+            opacity: 1, 
+            duration: 2.5, 
+            ease: 'power1.inOut'
+        });
+
+        // Animate each scene as it enters the viewport
+        const scenes = gsap.utils.toArray('.story-text');
+        scenes.forEach((scene, i) => {
+            ScrollTrigger.create({
+                trigger: scene,
+                start: "top 80%",
+                end: "bottom 20%",
+                onEnter: () => scene.classList.add('is-visible'),
+                onLeave: () => scene.classList.remove('is-visible'),
+                onEnterBack: () => scene.classList.add('is-visible'),
+                onLeaveBack: () => scene.classList.remove('is-visible'),
+            });
+        });
+    </script>
+
+</body>
+</html>
