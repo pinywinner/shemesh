@@ -3,67 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>יומן הלב</title>
+    <title>יומן הלב: מסע למעמקים</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --slate-950: #020617;
-            --indigo-300: #a5b4fc;
-            --indigo-500: #6366f1;
-            --gray-300: #d1d5db;
-            --gray-400: #9ca3af;
-            --white: #ffffff;
+            --ocean-dark: #020a18;
+            --ocean-light: #0a192f;
+            --paper: #f5f0e1;
+            --gold: #c5a47e;
+            --gold-dark: #a88a65;
         }
 
-        /* --- Base & Typography --- */
+        /* --- Base & Background --- */
         body {
             font-family: 'Assistant', sans-serif;
-            background-color: var(--slate-950);
-            color: var(--gray-300);
+            background-color: var(--ocean-dark);
+            color: var(--paper);
             overflow-x: hidden;
         }
-        .font-serif { font-family: 'Playfair Display', serif; }
-
-        /* --- Animated Background --- */
-        .background-container {
+        .background-wrapper {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
+            background: radial-gradient(ellipse at 50% 100%, var(--ocean-light) 0%, var(--ocean-dark) 60%);
             overflow: hidden;
-            background: var(--slate-950);
         }
-        .stars {
-            background: black url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png) repeat;
+        .particles {
             position: absolute;
-            top: 0; bottom: 0; left: 0; right: 0;
-            z-index: 0;
-        }
-        .twinkling{
-            width:10000px;
+            width: 100%;
             height: 100%;
-            background: transparent url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png) repeat;
-            background-size: 1000px 1000px;
+            background-image: url('https://www.transparenttextures.com/patterns/dust.png');
+            animation: float 60s linear infinite;
+            opacity: 0.05;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-1000px); }
+        }
+        .light-beam {
             position: absolute;
-            right: 0; top: 0; bottom: 0;
-            z-index: 1;
-            animation: move-background 90s linear infinite;
+            top: -50%;
+            left: 10%;
+            width: 200px;
+            height: 200%;
+            background: linear-gradient(90deg, rgba(165, 180, 252, 0.08), rgba(165, 180, 252, 0));
+            transform: rotate(-45deg);
+            animation: sweep 25s linear infinite alternate;
+        }
+        .light-beam:nth-child(2) {
+            left: auto;
+            right: 10%;
+            animation: sweep 30s linear infinite alternate-reverse;
+            animation-delay: -15s;
+        }
+        @keyframes sweep {
+            0% { transform: rotate(-45deg) translateX(-100%); }
+            100% { transform: rotate(-35deg) translateX(100%); }
         }
 
-        @keyframes move-background {
-            from { background-position: 0 0; }
-            to { background-position: -10000px 5000px; }
-        }
-
-        /* --- Main Layout & Scroll Animation --- */
+        /* --- Layout & Scroll --- */
         .content-wrapper {
             position: relative;
-            z-index: 2;
+            z-index: 1;
         }
         .scroll-container {
             width: 100%;
@@ -72,7 +79,7 @@
             padding: 0 1rem;
         }
         .content-block {
-            padding: 10vh 0; /* Reduced vertical padding */
+            padding: 10vh 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -93,29 +100,31 @@
         /* --- Content Styling --- */
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem; /* 40px */
+            font-size: 2.5rem;
             font-weight: 700;
-            color: var(--white);
+            color: var(--paper);
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 12px rgba(165, 180, 252, 0.3);
+            text-shadow: 0 0 12px rgba(197, 164, 126, 0.3);
         }
         @media (min-width: 768px) {
-            .section-title { font-size: 3rem; /* 48px */ }
+            .section-title { font-size: 3rem; }
         }
         .section-subtitle {
-            font-size: 1.25rem; /* 20px */
-            color: var(--indigo-300);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            color: var(--gold);
+            font-style: italic;
             margin-bottom: 2.5rem;
         }
         
         blockquote {
-            border-right: 3px solid var(--indigo-500);
+            border-right: 3px solid var(--gold);
             padding-right: 1.5rem;
             margin-bottom: 2rem;
         }
         .quote-source {
             font-weight: 600;
-            color: var(--indigo-300);
+            color: var(--gold);
             margin-bottom: 0.75rem;
             display: block;
             font-size: 1rem;
@@ -123,66 +132,61 @@
         .quote-body {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            color: var(--gray-300);
+            color: #e0dace;
             font-size: 1.5rem;
             line-height: 1.6;
         }
         .analysis-body {
-            color: var(--gray-400);
-            font-size: 1.125rem; /* 18px */
-            line-height: 1.8;
+            color: #b0a99d;
+            font-size: 1.25rem;
+            line-height: 1.9; /* Adjusted line-height */
             max-width: 90%;
-        }
-        .analysis-body strong {
-            color: var(--gray-300);
-            font-weight: 600;
         }
         
         /* --- Visual Separator --- */
         .separator {
-            height: 8rem; /* Reduced height */
+            height: 10rem;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .separator svg {
-            width: 40px;
-            height: 40px;
-            color: var(--indigo-300);
-            opacity: 0.5;
-            animation: pulse 4s ease-in-out infinite;
+            fill: var(--gold);
+            opacity: 0.3;
+            animation: pulse 6s ease-in-out infinite;
         }
         @keyframes pulse {
-            0%, 100% { opacity: 0.3; transform: scale(0.95); }
-            50% { opacity: 0.7; transform: scale(1.05); }
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.4; }
         }
 
         /* --- Footer Links --- */
         .streaming-icon {
-            color: var(--gray-400);
+            color: var(--gold-dark);
             transition: color 0.3s ease, transform 0.3s ease;
         }
         .streaming-icon:hover {
-            color: var(--white);
+            color: var(--paper);
             transform: translateY(-2px);
         }
 
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <div class="background-container">
-        <div class="stars"></div>
-        <div class="twinkling"></div>
+    <div class="background-wrapper">
+        <div class="particles"></div>
+        <div class="light-beam"></div>
+        <div class="light-beam"></div>
     </div>
 
     <div class="content-wrapper">
         <div class="scroll-container">
         
             <header class="content-block header-block text-center">
-                <h1 class="font-serif text-6xl md:text-8xl font-bold text-white mb-4" style="text-shadow: 0 0 15px rgba(165, 180, 252, 0.5);">יומן הלב</h1>
-                <p class="text-xl md:text-2xl text-indigo-300 max-w-3xl mx-auto">
-                     הניתוח המלא של השיר "My Heart Will Go On" - מסע אל תוך ארכיטקטורת הרגש של שיר שהפך למיתוס.
+                <h1 class="font-serif text-6xl md:text-8xl font-bold text-paper mb-4" style="text-shadow: 0 0 20px rgba(197, 164, 126, 0.4);">יומן הלב</h1>
+                <p class="text-xl md:text-2xl" style="color: var(--gold);">
+                    הניתוח המלא של השיר "My Heart Will Go On" - מסע אל תוך ארכיטקטורת הרגש של שיר שהפך למיתוס.
                 </p>
             </header>
 
@@ -195,9 +199,11 @@
                     <p class="quote-body">"בְּכָל לַיְלָה בַּחֲלוֹמוֹתַי<br>אֲנִי רוֹאָה אוֹתְךָ, חָשָׁה אוֹתְךָ<br>כָּךְ אֲנִי יוֹדַעַת שֶׁאַתָּה מַמְשִׁיךְ לְהִתְקַיֵּם.<br>מֵעֵבֶר לַמֶּרְחָק<br>וְלַחֲלָלִים שֶׁבֵּינֵינוּ<br>בָּאתָ לְהַרְאוֹת שֶׁאַתָּה מַמְשִׁיךְ."</p>
                 </blockquote>
                 <h3 class="quote-source">ניתוח:</h3>
-                <p class="analysis-body">השיר נפתח לא בבכי, אלא בפולחן. זו אינה היזכרות פסיבית, אלא פעולה מכוונת של בריאה. החלום הוא המקדש הפרטי והסודי של הדוברת, המרחב היחיד שבו חוקי הפיזיקה והמוות בטלים. היא לא רק "נזכרת" בו, היא מזמנת את נוכחותו המוחשית ("רואה אותך, חשה אותך"). זוהי ההוכחה האולטימטיבית שלה כנגד העולם החיצון שטוען שהוא איננו: "כך אני יודעת שאתה ממשיך להתקיים". כלומר, החוויה הפנימית שלה חזקה יותר מהמציאות החיצונית. הרגש כאן הוא של אינטימיות עמוקה וגעגוע שהופך לכוח יוצר.</p>
+                <p class="analysis-body">השיר נפתח לא בבכי, אלא בפולחן.<br>זו אינה היזכרות פסיבית, אלא פעולה מכוונת של בריאה.<br>החלום הוא המקדש הפרטי והסודי של הדוברת, המרחב היחיד שבו חוקי הפיזיקה והמוות בטלים.<br>היא לא רק "נזכרת" בו, היא מזמנת את נוכחותו המוחשית ("רואה אותך, חשה אותך").<br>זוהי ההוכחה האולטיטיבית שלה כנגד העולם החיצון שטוען שהוא איננו: "כך אני יודעת שאתה ממשיך להתקיים".<br>כלומר, החוויה הפנימית שלה חזקה יותר מהמציאות החיצונית.<br>הרגש כאן הוא של אינטימיות עמוקה וגעגוע שהופך לכוח יוצר.</p>
             </section>
-            <div class="separator"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 0 0 3.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0 1 20.25 6v1.5m0 9V18A2.25 2.25 0 0 1 18 20.25h-1.5m-9 0H6A2.25 2.25 0 0 1 3.75 18v-1.5M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg></div>
+            <div class="separator content-block">
+                <svg class="w-24 h-24" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M57.17,47.17a4,4,0,0,0-4.7-4.7L46,44.59V32a14,14,0,0,0-28,0V44.59l-6.47-2.12a4,4,0,1,0-2.46,7.66L18,53.41V56H14a4,4,0,0,0,0,8H50a4,4,0,0,0,0-8H46V53.41l8.93-3.26a4,4,0,0,0,2.24-2.93ZM32,12a6,6,0,1,1-6,6A6,6,0,0,1,32,12Z"/></svg>
+            </div>
 
             <!-- Part 2: The Universal Declaration -->
             <section class="content-block">
@@ -208,9 +214,11 @@
                     <p class="quote-body">"קָרוֹב, רָחוֹק, הֵיכָן שֶׁלֹּא תִּהְיֶה<br>אֲנִי מַאֲמִינָה שֶׁהַלֵּב מַמְשִׁיךְ לִפְעֹם<br>שׁוּב, אַתָּה פּוֹתֵחַ אֶת הַדֶּלֶת<br>וְאַתָּה כָּאן, בְּלִבִּי<br>וְלִבִּי יַמְשִׁיךְ וְיַמְשִׁיךְ."</p>
                 </blockquote>
                 <h3 class="quote-source">ניתוח:</h3>
-                <p class="analysis-body">מהמרחב הפרטי של החלום, הדוברת עוברת להצהרה כללית. כאן הרעיון האישי הופך לעיקרון אוניברסלי. היא מבטלת את משמעות המרחק והחלל, ומכריזה על אמונה חדשה: אהבה אמיתית אינה תלויה בגוף פיזי. הביטוי "הלב ממשיך לפעום" (The heart does go on) הוא גאוני בכפל המשמעות שלו:<br><strong>הלב הפיזי:</strong> לבה שלה ממשיך לפעום, היא ממשיכה לחיות כפי שהבטיחה לו.<br><strong>הלב המטאפיזי:</strong> מהות האהבה שלהם, "הלב" של הקשר, ממשיך להתקיים כאנרגיה נצחית.<br>הדימוי של "פתיחת הדלת" הוא רגע של בחירה מודעת. היא לא מוצפת על ידי הזיכרון, אלא מזמינה אותו פנימה באופן פעיל. הרגש כאן הוא של ביטחון עצמי ומעבר מאמונה אישית להצהרת אמת אוניברסלית.</p>
+                <p class="analysis-body">מהמרחב הפרטי של החלום, הדוברת עוברת להצהרה כללית.<br>כאן הרעיון האישי הופך לעיקרון אוניברסלי.<br>היא מבטלת את משמעות המרחק והחלל, ומכריזה על אמונה חדשה: אהבה אמיתית אינה תלויה בגוף פיזי.<br>הביטוי "הלב ממשיך לפעום" (The heart does go on) הוא גאוני בכפל המשמעות שלו:<br><strong>הלב הפיזי:</strong> לבה שלה ממשיך לפעום, היא ממשיכה לחיות כפי שהבטיחה לו.<br><strong>הלב המטאפיזי:</strong> מהות האהבה שלהם, "הלב" של הקשר, ממשיך להתקיים כאנרגיה נצחית.<br>הדימוי של "פתיחת הדלת" הוא רגע של בחירה מודעת.<br>היא לא מוצפת על ידי הזיכרון, אלא מזמינה אותו פנימה באופן פעיל.<br>הרגש כאן הוא של ביטחון עצמי ומעבר מאמונה אישית להצהרת אמת אוניברסלית.</p>
             </section>
-            <div class="separator"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 0 0 3.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0 1 20.25 6v1.5m0 9V18A2.25 2.25 0 0 1 18 20.25h-1.5m-9 0H6A2.25 2.25 0 0 1 3.75 18v-1.5M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg></div>
+            <div class="separator content-block">
+                <svg class="w-24 h-24" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M57.17,47.17a4,4,0,0,0-4.7-4.7L46,44.59V32a14,14,0,0,0-28,0V44.59l-6.47-2.12a4,4,0,1,0-2.46,7.66L18,53.41V56H14a4,4,0,0,0,0,8H50a4,4,0,0,0,0-8H46V53.41l8.93-3.26a4,4,0,0,0,2.24-2.93ZM32,12a6,6,0,1,1-6,6A6,6,0,0,1,32,12Z"/></svg>
+            </div>
 
             <!-- Part 3: Defining the Anchor -->
             <section class="content-block">
@@ -221,9 +229,11 @@
                     <p class="quote-body">"אַהֲבָה יְכוֹלָה לִנְגֹּעַ בָּנוּ פַּעַם אַחַת<br>וּלְהִמָּשֵׁךְ לְכָל הַחַיִּים<br>וְלֹא לְהַרְפּוֹת, עַד שֶׁנֶּעֱלַם.<br>אַהֲבָה הָיְתָה כְּשֶׁאָהַבְתִּי אוֹתְךָ<br>פַּעַם אַחַת אֲמִתִּית שֶׁבָּהּ אֶדְבַּק<br>בְּחַיַּי, אָנוּ תָּמִיד נַמְשִׁיךְ."</p>
                 </blockquote>
                 <h3 class="quote-source">ניתוח:</h3>
-                <p class="analysis-body">חלק זה מספק את הבסיס הלוגי לכל האמונה הזו. הוא עונה על השאלה "למה האהבה הזו כל כך חזקה?". התשובה: כי היא הייתה אירוע ייחודי ומכונן. "פעם אחת אמיתית שבה אדבק" – הדוברת מבודדת את החוויה הזו מכל אירוע אחר בחייה ומגדירה אותה כאירוע שעיצב את זהותה. זו לא הייתה סתם אהבה, זו הייתה ה-אהבה, נקודת הציון שדרכה היא מודדת את כל חייה. הרגש כאן הוא לא נוסטלגיה מתוקה, אלא הכרה עמוקה בערך של אירוע ששינה את מסלול נשמתה לעד.</p>
+                <p class="analysis-body">חלק זה מספק את הבסיס הלוגי לכל האמונה הזו.<br>הוא עונה על השאלה "למה האהבה הזו כל כך חזקה?".<br>התשובה: כי היא הייתה אירוע ייחודי ומכונן.<br>"פעם אחת אמיתית שבה אדבק" – הדוברת מבודדת את החוויה הזו מכל אירוע אחר בחייה ומגדירה אותה כאירוע שעיצב את זהותה.<br>זו לא הייתה סתם אהבה, זו הייתה ה-אהבה, נקודת הציון שדרכה היא מודדת את כל חייה.<br>הרגש כאן הוא לא נוסטלגיה מתוקה, אלא הכרה עמוקה בערך של אירוע ששינה את מסלול נשמתה לעד.</p>
             </section>
-            <div class="separator"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 0 0 3.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0 1 20.25 6v1.5m0 9V18A2.25 2.25 0 0 1 18 20.25h-1.5m-9 0H6A2.25 2.25 0 0 1 3.75 18v-1.5M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg></div>
+            <div class="separator content-block">
+                 <svg class="w-32 h-32" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M62,43.29,56.2,32.65a4,4,0,0,0-3.66-2.4H48V20a4,4,0,0,0-4-4H20a4,4,0,0,0-4,4V30.25H11.46a4,4,0,0,0-3.66,2.4L2,43.29a4,4,0,0,0,1.6,5.14L18,56.25V60a4,4,0,0,0,4,4H42a4,4,0,0,0,4-4V56.25l14.4-7.82A4,4,0,0,0,62,43.29ZM24,24h8v6a4,4,0,0,0,8,0V24h2a4,4,0,0,0,4-4,4,4,0,0,0-4-4H20a4,4,0,0,0-4,4A4,4,0,0,0,20,24h4Zm20,34H20V55.41l-13-7.07,5-9.16H42l5,9.16L34,55.41V58Z"/></svg>
+            </div>
 
             <!-- Part 4: Return of the Declaration -->
             <section class="content-block">
@@ -234,9 +244,11 @@
                     <p class="quote-body">"קָרוֹב, רָחוֹק, הֵיכָן שֶׁלֹּא תִּהְיֶה<br>אֲנִי מַאֲמִינָה שֶׁהַלֵּב מַמְשִׁיךְ לִפְעֹם<br>שׁוּב, אַתָּה פּוֹתֵחַ אֶת הַדֶּלֶת<br>וְאַתָּה כָּאן, בְּלִבִּי<br>וְלִבִּי יַמְשִׁיךְ וְיַמְשִׁיךְ."</p>
                 </blockquote>
                 <h3 class="quote-source">ניתוח:</h3>
-                <p class="analysis-body">חזרת הפזמון כאן אינה רק חזרה מוזיקלית. היא באה אחרי ההצהרה על האהבה כ"פעם אחת אמיתית", ולכן היא נטענת במשמעות עמוקה יותר. זו כבר לא רק אמונה, זו מסקנה. היא מצהירה שוב על העיקרון האוניברסלי, אך הפעם הוא מבוסס על הוודאות המוחלטת של החוויה המכוננת שתיארה. זוהי הטמעה והפנמה של האמת שלה, חזרה על המנטרה האישית שהפכה לעמוד השדרה של קיומה.</p>
+                <p class="analysis-body">חזרת הפזמון כאן אינה רק חזרה מוזיקלית.<br>היא באה אחרי ההצהרה על האהבה כ"פעם אחת אמיתית", ולכן היא נטענת במשמעות עמוקה יותר.<br>זו כבר לא רק אמונה, זו מסקנה.<br>היא מצהירה שוב על העיקרון האוניברסלי, אך הפעם הוא מבוסס על הוודאות המוחלטת של החוויה המכוננת שתיארה.<br>זוהי הטמעה והפנמה של האמת שלה, חזרה על המנטרה האישית שהפכה לעמוד השדרה של קיומה.</p>
             </section>
-            <div class="separator"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 0 0 3.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0 1 20.25 6v1.5m0 9V18A2.25 2.25 0 0 1 18 20.25h-1.5m-9 0H6A2.25 2.25 0 0 1 3.75 18v-1.5M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg></div>
+            <div class="separator content-block">
+                <svg class="w-32 h-32" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M62,43.29,56.2,32.65a4,4,0,0,0-3.66-2.4H48V20a4,4,0,0,0-4-4H20a4,4,0,0,0-4,4V30.25H11.46a4,4,0,0,0-3.66,2.4L2,43.29a4,4,0,0,0,1.6,5.14L18,56.25V60a4,4,0,0,0,4,4H42a4,4,0,0,0,4-4V56.25l14.4-7.82A4,4,0,0,0,62,43.29ZM24,24h8v6a4,4,0,0,0,8,0V24h2a4,4,0,0,0,4-4,4,4,0,0,0-4-4H20a4,4,0,0,0-4,4A4,4,0,0,0,20,24h4Zm20,34H20V55.41l-13-7.07,5-9.16H42l5,9.16L34,55.41V58Z"/></svg>
+            </div>
 
             <!-- Part 5: The Absolute Victory -->
             <section class="content-block">
@@ -247,26 +259,28 @@
                     <p class="quote-body">"אַתָּה כָּאן, אֵין דָּבָר שֶׁמַּפְחִיד אוֹתִי<br>וַאֲנִי יוֹדַעַת שֶׁלִּבִּי יַמְשִׁיךְ לִפְעֹם<br>נִשָּׁאֵר כָּךְ לָנֶצַח<br>אַתָּה בָּטוּחַ בְּלִבִּי<br>וְלִבִּי יַמְשִׁיךְ וְיַמְשִׁיךְ."</p>
                 </blockquote>
                 <h3 class="quote-source">ניתוח:</h3>
-                <p class="analysis-body">זהו שיא המסע הרגשי. הנוכחות הפנימית של אהובה הפכה ממקור נחמה למבצר: "אתה כאן, אין דבר שמפחיד אותי". זוהי הצהרת הכוח האולטימטיבית. הפחד הקיומי – מהבדידות, מהזקנה, מהמוות עצמו – מתבטל לחלוטין. האהבה הפכה לשריון. המשפט "אתה בטוח בלבי" (You are safe in my heart) הוא היפוך תפקידים מדהים. היא כבר לא רק זו שזוכרת אותו; היא הפכה להיות השומרת והמגנה על מהותו. כאן מגיע רגש של שלווה טרנסצנדנטלית וניצחון מוחלט. היא לא שרדה, היא התעלתה. היא השיגה שלום פנימי מלא.</p>
+                <p class="analysis-body">זהו שיא המסע הרגשי.<br>הנוכחות הפנימית של אהובה הפכה ממקור נחמה למבצר: "אתה כאן, אין דבר שמפחיד אותי".<br>זוהי הצהרת הכוח האולטיטיבית.<br>הפחד הקיומי – מהבדידות, מהזקנה, מהמוות עצמו – מתבטל לחלוטין.<br>האהבה הפכה לשריון.<br>המשפט "אתה בטוח בלבי" הוא היפוך תפקידים מדהים.<br>היא כבר לא רק זו שזוכרת אותו; היא הפכה להיות השומרת והמגנה על מהותו.<br>כאן מגיע רגש של שלווה טרנסצנדנטלית וניצחון מוחלט.<br>היא לא שרדה, היא התעלתה.<br>היא השיגה שלום פנימי מלא.</p>
             </section>
 
             <footer class="content-block text-center" style="min-height: 50vh;">
-                <div class="mb-8">
-                    <p class="text-lg text-indigo-300 mb-4">לשמיעת השיר</p>
+                <div>
+                    <p class="text-lg mb-4" style="color: var(--gold);">לשמיעת השיר</p>
                     <div class="flex justify-center items-center gap-8">
                         <a href="https://youtu.be/A3QAqZQYLIQ" target="_blank" rel="noopener noreferrer" class="streaming-icon" aria-label="YouTube">
-                            <svg class="w-12 h-12" role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>YouTube</title><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            <svg class="w-10 h-10" role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>YouTube</title><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                         </a>
                         <a href="https://music.youtube.com/watch?v=Siz-xBfIqpg&si=fc96cBXYjsaJKo9h" target="_blank" rel="noopener noreferrer" class="streaming-icon" aria-label="YouTube Music">
-                            <svg class="w-12 h-12" role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>YouTube Music</title><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 18.5a6.5 6.5 0 1 1 0-13 6.5 6.5 0 0 1 0 13zm0-9.75a3.25 3.25 0 1 0 0 6.5 3.25 3.25 0 0 0 0-6.5zM9.75 14.3v-4.6l4 2.3-4 2.3z"/></svg>
+                            <svg class="w-10 h-10" role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>YouTube Music</title><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 18.5a6.5 6.5 0 1 1 0-13 6.5 6.5 0 0 1 0 13zm0-9.75a3.25 3.25 0 1 0 0 6.5 3.25 3.25 0 0 0 0-6.5zM9.75 14.3v-4.6l4 2.3-4 2.3z"/></svg>
                         </a>
                         <a href="https://open.spotify.com/track/33LC84JgLvK2KuW43MfaNq?si=KCKdRL0nST6pP3L73bYDtQ" target="_blank" rel="noopener noreferrer" class="streaming-icon" aria-label="Spotify">
-                            <svg class="w-12 h-12" role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>Spotify</title><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.887 17.54a.75.75 0 0 1-1.044.288c-2.887-1.764-6.45-2.184-10.687-1.188a.75.75 0 0 1-.87-.66.75.75 0 0 1 .66-.87c4.596-1.08 8.616-.6 11.856 1.344a.75.75 0 0 1 .288 1.044zm.937-2.496a.938.938 0 0 1-1.254.336c-3.216-1.968-8.064-2.52-11.04-1.392a.938.938 0 0 1-1.104-.636.938.938 0 0 1 .636-1.104c3.36-1.236 8.544-.648 12.192 1.584a.938.938 0 0 1 .336 1.254zm.135-2.676c-.336.504-1.008.672-1.512.336-3.672-2.244-9.624-2.916-13.008-1.608a1.125 1.125 0 0 1-1.344-.792 1.125 1.125 0 0 1 .792-1.344c3.912-1.464 10.392-.732 14.592 1.884a1.125 1.125 0 0 1 .336 1.512z"/></svg>
+                            <svg class="w-10 h-10" role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>Spotify</title><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.887 17.54a.75.75 0 0 1-1.044.288c-2.887-1.764-6.45-2.184-10.687-1.188a.75.75 0 0 1-.87-.66.75.75 0 0 1 .66-.87c4.596-1.08 8.616-.6 11.856 1.344a.75.75 0 0 1 .288 1.044zm.937-2.496a.938.938 0 0 1-1.254.336c-3.216-1.968-8.064-2.52-11.04-1.392a.938.938 0 0 1-1.104-.636.938.938 0 0 1 .636-1.104c3.36-1.236 8.544-.648 12.192 1.584a.938.938 0 0 1 .336 1.254zm.135-2.676c-.336.504-1.008.672-1.512.336-3.672-2.244-9.624-2.916-13.008-1.608a1.125 1.125 0 0 1-1.344-.792 1.125 1.125 0 0 1 .792-1.344c3.912-1.464 10.392-.732 14.592 1.884a1.125 1.125 0 0 1 .336 1.512z"/></svg>
                         </a>
                     </div>
+                    <div class="mt-8">
+                        <p class="font-body" style="color: #a88a65;">ניתוח מקורי מאת המשתמש.</p>
+                        <p class="font-body" style="color: #a88a65; opacity: 0.7;">עיצוב ובימוי ויזואלי מאת Gemini.</p>
+                    </div>
                 </div>
-                <p class="text-slate-400">ניתוח מקורי מאת המשתמש.</p>
-                <p class="text-slate-500">עיצוב ובימוי ויזואלי מאת Gemini.</p>
             </footer>
         </div>
     </div>
@@ -279,9 +293,9 @@
                     entry.target.classList.add('is-visible');
                 }
             });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.25 });
 
-        document.querySelectorAll('.content-block, .separator').forEach(section => {
+        document.querySelectorAll('.content-block').forEach(section => {
             observer.observe(section);
         });
     </script>
